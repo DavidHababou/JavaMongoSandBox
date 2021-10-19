@@ -4,4 +4,5 @@ package david.hababou.mongoSandBox;
 public class MongoSandBoxElement {
 	public String firstName;
 	public String lastName;
+	public String id;
 }
