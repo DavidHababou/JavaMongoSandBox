@@ -1,4 +1,4 @@
-package david.hababou.mongoSandBox;
+package david.hababou.sandbox.mongo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +8,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
 
 @Configuration
-public class MongoSandBoxConfiguration {
+public class SandBoxMongoConfiguration {
 	@Autowired
 	MongoClient mongoClient;
 	 @Bean

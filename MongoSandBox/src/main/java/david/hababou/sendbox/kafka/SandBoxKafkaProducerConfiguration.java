@@ -1,4 +1,4 @@
-package david.hababou.kafkaSendBox;
+package david.hababou.sendbox.kafka;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,15 +7,26 @@ import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
+import com.fasterxml.jackson.databind.JsonSerializer;
+
+@ComponentScan
 @Configuration
-public class KafkaSandBoxConfiguration {
+public class SandBoxKafkaProducerConfiguration {
+	
+	@Value(value = "${kafka.bootstrapAddress}")
+    private String bootstrapAddress;
+	@Value(value = "${kafka.topic1}")
+	private String topic;
 	@Bean
     public KafkaAdmin kafkaAdmin() {
         Map<String, Object> configs = new HashMap<>();
@@ -25,7 +36,7 @@ public class KafkaSandBoxConfiguration {
     
     @Bean
     public NewTopic topic1() {
-         return new NewTopic("baeldung", 1, (short) 1);
+         return new NewTopic(topic, 1, (short) 1);
     }
     
     @Bean
@@ -39,7 +50,7 @@ public class KafkaSandBoxConfiguration {
           StringSerializer.class);
         configProps.put(
           ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, 
-          StringSerializer.class);
+          JsonSerializer.class);
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
