@@ -11,7 +11,8 @@ target/
 .factorypath
 .springBeans
 .sts4-cache
-
+.swp
+gittoken
 ### IntelliJ IDEA ###
 .idea
 *.iws

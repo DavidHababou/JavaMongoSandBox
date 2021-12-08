@@ -1,4 +1,4 @@
-package david.hababou.sendbox.kafka;
+package david.hababou.sandbox.kafka;
 
 import java.util.HashMap;
 import java.util.Map;
