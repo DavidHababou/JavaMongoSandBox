@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 import david.hababou.sandbox.model.SandBoxElement;
 @RestController
 public class SandBoxController {
-	
+	                  
 	@Autowired
 	MongoTemplate mngtmpl;
 	@Autowired
 	KafkaTemplate<String, SandBoxElement> kfktmpl;
-	//@Autowired
-	//KafkaAdmin kfkadm;
+	@Autowired
+	KafkaAdmin kfkadm;
 	
 	@GetMapping("/mongodemo/{collection}/{id}")
 	public List<SandBoxElement> getFromMongo(@PathVariable String collection, @PathVariable String id) {
@@ -40,11 +40,11 @@ public class SandBoxController {
 	public void PostToMongo(@RequestBody SandBoxElement body) {
 		mngtmpl.insert(body);
 	}
-	/*@PostMapping("/kafkatopics/{topic}")
+	@PostMapping("/kafkatopics/{topic}")
 	public void PostTopicToKafka(@PathVariable String topic) {
 		kfkadm.createOrModifyTopics(new NewTopic(topic,
 				1, (short)1));;
-	}*/
+	}
 	@PostMapping("/kafka/{topic}")
 	public void PostToKafka(@PathVariable String topic, @RequestBody SandBoxElement body) {
 		kfktmpl.send(topic, "1", body);
