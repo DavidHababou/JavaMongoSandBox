@@ -3,7 +3,10 @@ package david.hababou.sandbox.kafka;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.kafka.clients.admin.Admin;
+import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.AdminClientConfig;
+import org.apache.kafka.clients.admin.KafkaAdminClient;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -55,5 +58,11 @@ public class SandBoxKafkaProducerConfiguration {
     @Bean
     public KafkaTemplate<String, SandBoxElement> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
+    }
+    @Bean
+    public KafkaAdminClient kfkAdmClnt() {
+      Map<String, Object> props = new HashMap<>();
+      props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+      return (KafkaAdminClient)AdminClient.create(props);
     }
 }
